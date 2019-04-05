@@ -1,0 +1,51 @@
+<?php
+
+// A list of permitted file extensions
+$allowed = array('png', 'jpg', 'gif','zip');
+require_once __DIR__.'/argv-parser.php';
+require 'vendor/autoload.php';
+
+use Google\Cloud\Storage\StorageClient;
+
+$storage = new StorageClient();
+
+$bucket = $storage->bucket('my_bucket');
+
+if(isset($_FILES['upl']) && $_FILES['upl']['error'] == 0){
+
+	$extension = pathinfo($_FILES['upl']['name'], PATHINFO_EXTENSION);
+
+	if(!in_array(strtolower($extension), $allowed)){
+		echo '{"status":"error"}';
+		exit;
+	}
+
+$storage = new StorageClient(['keyFilePath'=>__DIR__.'/secret/key.json']);
+$my_bucket = "sheru-ka-bucket";
+$fileName = $_FILES['upl']['name'];
+$fileType = $_FILES['upl']['type'];
+$fileSize = $_FILES['upl']['size'];
+$fileTempLoc = $_FILES['upl']['tmp_name'];
+$bucket = $storage->bucket($my_bucket);
+$fl = fopen($fileTempLoc,'r');
+$bucket->upload($fl,['name'=>$fileName]);
+$object = $bucket->object($fileName);
+  // echo __DIR__."/data/".$fileName.'<br>';
+     // var_dump($object);
+$object->downloadToFile(__DIR__.'/uploads/'.$fileName);
+$url1 = "http:\/\/34.80.180.52:9870/webhdfs/v1/?op=CREATE&overwrite=false";
+$url2 = "http:\/\/34.80.180.52:9870/webhdfs/v1/?op=CREATE";
+$handle = curl_init();
+curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($handle, CURLOPT_CUSTOMREQUEST, "PUT");
+curl_setopt($handle, CURLOPT_URL, $url);
+$data = curl_exec($handle);
+curl_close($handle);
+
+echo '{"status":"success"}';
+exit;
+
+}
+
+echo '{"status":"error"}';
+exit;

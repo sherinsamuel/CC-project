@@ -1,0 +1,12 @@
+<?php
+require_once __DIR__.'/WebHDFS/WebHDFS.php';
+
+echo "m inside";
+
+/* ホストとポートを指定する */
+$hdfs = new WebHDFS('localhost', 9870);
+
+echo $hdfs->homedir();
+
+$hdfs->put('/','/uploads/archi.png');
+?>
