@@ -1,59 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" >
 
-	<head>
-		<meta charset="utf-8"/>
-		<title>Hadoop Image Upload</title>
+<head>
+<meta charset="UTF-8">
+<title>HDFS upload form</title>
+<link rel="stylesheet" href="css/style.css">
+<link href="css/sidebar_style.css" rel="stylesheet" />
 
-		<!-- Google web fonts -->
-		<link href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel='stylesheet' />
+  
+</head>
 
-		<!-- The main CSS file -->
-		<link href="assets/css/style.css" rel="stylesheet" />
-		<link href="assets/css/sidebar_style.css" rel="stylesheet" />
- <!-- JavaScript Includes -->
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-                <script src="assets/js/jquery.knob.js"></script>
-
-                <!-- jQuery File Upload Dependencies -->
-                <script src="assets/js/jquery.ui.widget.js"></script>
-                <script src="assets/js/jquery.iframe-transport.js"></script>
-                <script src="assets/js/jquery.fileupload.js"></script>
-
-                <!-- Our main JS file -->
-                <script src="assets/js/script.js"></script>
-                <script src="assets/js/actions.js"></script>
-	</head>
-
-	<body>
-
-<!-- The sidebar -->
+<body>
 <div class="sidebar">
   <a class="active" href="#home"><font size="6">Files List</font></a>
 <div id="list">  
 
 </div>
 </div>
-
-<!-- Page content -->
 <div class="content">
-<br>
-<h1 align="center">HADOOP FILE UPLOAD</h1>  
-		<form id="upload" align="center" method="post" action="upload.php" enctype="multipart/form-data" onmouseout="load_list();">
-			<div id="drop">
-				Drop Here
-
-				<a>Browse</a>
-				<input type="file" id="upl" name="upl" multiple />
-			</div>
-
-			<ul id="upload_list">
-				<!-- The file uploads will be shown here -->
-			</ul>
-
-		</form>
+  <div class="uploadWrapper">
+  <form id="imageUploadForm" class="imageUploadForm" method="post" action="http://104.155.234.246/project/upload.php" enctype="multipart/form-data">
+    <span class="helpText" id="helpText">Upload an image</span>
+    <input type='file' id="file" name="file" class="uploadButton"/>
+    <div id="uploadedImg" class="uploadedImg">
+      <span class="unveil"></span>
+    </div>
+    <span class="pickFile">
+      <a href="#" class="pickFileButton">Pick file</a>
+    </span>
+  </form>
 </div>
-
+</div> 
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script  src="js/index.js"></script>
+<script  src="js/actions.js"></script>
 </body>
 
 </html>
